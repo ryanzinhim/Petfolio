@@ -1,0 +1,17 @@
+# Compilação e Dependências
+bin/
+obj/
+packages/
+*.csproj.user
+*.suo
+*.vs/
+*.nupkg
+*.dll
+*.exe
+*.pdb
+
+# Configuração e Logs
+appsettings.Development.json
+appsettings.Local.json
+logs/
+*.log
