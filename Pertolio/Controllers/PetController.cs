@@ -4,6 +4,7 @@ using Petfolio.aplication.UseCases.Pet.Register;
 using Petfolio.aplication.UseCases.Pet.Update;
 using Petfolio.comunication.Request;
 using Petfolio.comunication.Responses;
+using Petfolio.Comunication.Responses;
 
 namespace Pertolio.Controllers
 {
@@ -14,6 +15,8 @@ namespace Pertolio.Controllers
         private static readonly List<RegisterPet> _pet = new();
         [HttpPost]
         [ProducesResponseType(typeof(ResponseRegisterPet), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(ResponseError), StatusCodes.Status400BadRequest)]
+
         public IActionResult Register([FromBody] RegisterPet request)
         {
             var response = new RegisterPetUseCases().execute(request);
@@ -24,10 +27,18 @@ namespace Pertolio.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<RegisterPet>), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(List<RegisterPet>), StatusCodes.Status200OK)]
         public IActionResult GetAll()
         {
             return Ok(_pet);
+        }
+        [HttpGet]
+        [ProducesResponseType(typeof(List<RegisterPet>), StatusCodes.Status200OK)]
+
+        public IActionResult Get(int id) 
+        { 
+
+            return Ok(_pet[id]);
         }
         [HttpPut]
         [Route("{id}")]
@@ -39,6 +50,16 @@ namespace Pertolio.Controllers
             UseCase.execute(id, request);
 
             return NoContent();
+        }
+        [HttpDelete]
+        [Route("{id}")]
+        [ProducesResponseType(typeof(ResponseRegisterPet), StatusCodes.Status204Created)]
+        [ProducesResponseType(typeof(ResponseError), StatusCodes.Status404BadRequest)]
+        public IActionResult Delete (int id)
+        {
+
+            return NoContent
+
         }
     }
 }
